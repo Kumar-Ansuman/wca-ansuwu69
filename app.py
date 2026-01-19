@@ -14,7 +14,7 @@ if uploaded_file is not None:
     df = preprocessor.preprocess(data)
 
 
-    #fetching unique users
+    #fetching unique users assssss
     user_list = df['user'].unique().tolist()
     if 'group_notification' in user_list:
         user_list.remove('group_notification')
