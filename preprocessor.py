@@ -3,7 +3,7 @@ import pandas as pd
 
 def preprocess(data):
     #Theee pattern
-    pattern = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}\s?[ap]m\s-\s'
+    pattern = r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{2}(?:\s?[ap]m)?\s-\s'
 
     #split of message and dates
     messages = re.split(pattern, data)[1:]
@@ -11,7 +11,10 @@ def preprocess(data):
     df = pd.DataFrame({'user_messages': messages, 'message_dates': dates})
 
     #convert to date_time
-    df['message_dates'] = pd.to_datetime(df['message_dates'], format='%d/%m/%y, %I:%M %p - ')
+    try:
+        df['message_dates'] = pd.to_datetime(df['message_dates'], format='%d/%m/%y, %I:%M %p - ')
+    except ValueError:
+        df['message_dates'] = pd.to_datetime(df['message_dates'], format='%d/%m/%y, %H:%M - ')
 
     #split of user and messages
     users = []
