@@ -13,7 +13,7 @@ if uploaded_file is not None:
 
     df = preprocessor.preprocess(data)
 
-    st.dataframe(df)
+    
 
 
     #fetching unique users assssss
